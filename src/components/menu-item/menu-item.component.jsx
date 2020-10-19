@@ -1,8 +1,15 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import './menu-item.styles.scss';
 
-const MenuItem = ( {title, imageUrl, size} ) => (
-   <div className={`menu-item ${size}`}>
+// Los dos últimos parámetros  -history, match- provienen de 
+// la función HOC withRouter() -HOC: High Order Component
+const MenuItem = ( {title, imageUrl, size, linkUrl, history, match} ) => (
+// Variables organizadas según se fueron utilizando en el componente
+//const MenuItem = ( {size, linkUrl, imageUrl, title, history, match} ) => ( 
+   <div className={`menu-item ${size}`}
+        onClick={ ()=> history.push( `${ match.url }${linkUrl}` )}
+   >
    <div className="background-image"
         style={{ backgroundImage: `url(${imageUrl})`}}        
    />
@@ -12,4 +19,5 @@ const MenuItem = ( {title, imageUrl, size} ) => (
      </div>
    </div>
 )
-export default MenuItem;
+
+export default withRouter(MenuItem);

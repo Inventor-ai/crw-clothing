@@ -1,5 +1,6 @@
 import React from 'react';
-import MenuItem from '../menu-item/menu-item.component'
+import MenuItem from '../menu-item/menu-item.component';
+
 import './directory.styles.scss';
 
 class Directory extends React.Component {
@@ -48,12 +49,24 @@ class Directory extends React.Component {
     return (
     <div className="directory-menu">
       {
-        // Desestructurando el objeto
-        this.state.sections.map (( {title, imageUrl, id, size } )=> {
-          return <MenuItem key={id} title={title} imageUrl={imageUrl} size={size}/>
+        // Desestructuración abreviada del objeto
+        this.state.sections.map (( {id, ...otherSectionProps } )=> {
+          // Pasa todos los elementos del objeto como parámetros
+          return <MenuItem key={id} {...otherSectionProps} 
+          />
         })
 /*
-        // Enviando el objeto
+        // Desestructurando el objeto elemento por elemento
+        this.state.sections.map (( {id, title, imageUrl, size, linkUrl } )=> {
+          return <MenuItem key={id} 
+                    title={title} 
+                    imageUrl={imageUrl} 
+                    size={size}
+                    linkUrl= {linkUrl}
+          />
+        })
+
+        // Enviando el objeto completo
         this.state.sections.map ( ( section )=> {
           <MenuItem key={section.id} title={ section }/>
         });
