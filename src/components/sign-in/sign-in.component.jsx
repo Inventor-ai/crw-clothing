@@ -1,7 +1,7 @@
 import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
 
 import './sign-in.styles.scss';
 
@@ -14,18 +14,27 @@ class SignIn extends React.Component {
     }    
   }
 
-  handleSubmit = evento => {
-    console.log ('handleSubmit');
-    evento.preventDefault()  
-    this.setState( { email: '', password: '' } );
+  handleSubmit = async evento => {
+    evento.preventDefault();
+    const { email, password } = this.state;
+
+    try {
+       await auth.signInWithEmailAndPassword (email, password);
+       this.setState( { email: '', password: '' } );
+    } catch (error) {
+       console.error ('Error al accesar:', error);
+    }
   }
 
   handleChange = event => {
     const { value, name } = event.target;
-    this.setState({ [name]: value }, () => {
-        console.log ('this.state', this.state );
-        console.log ('handleChange', [name], value );
-    });
+    this.setState({ [name]: value }
+        // Implemented to see state's changes
+        // , () => {
+        // console.log ('this.state', this.state );
+        // console.log ('handleChange', [name], value );
+        //   }
+    );
   }
 
   render () {
@@ -71,22 +80,3 @@ class SignIn extends React.Component {
 }
 
 export default SignIn;
-
-/*
-        <form onSubmit={this.handleSubmit}>
-           <input type="email" onChange={this.handleChange}
-              name="email" value={this.state.email} required
-           />
-           <label >Email</label>
-           <input 
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              required
-           />
-           <label>Password</label>
-
-           <input type="submit" value="Submit Form"/>
-        </form>
-*/

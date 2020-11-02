@@ -35,7 +35,8 @@ class App extends React.Component {
              // Muestra datos del usuario logeado (Signed-In)
             //  () => { console.log ("this.setState I:", this.state) }
            );
-           console.log ("onSnapShot I:", this.state );
+           // Used for testing sign in too
+           //  console.log ("onSnapShot I:", this.state );
          });
       }
       else {
