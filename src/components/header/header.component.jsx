@@ -4,6 +4,7 @@ import './header.styles.scss';
 import { ReactComponent as Logo} from '../../assets/crown.svg';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.utils';
+import { connect } from 'react-redux';
 
 const Header = ( { currentUser } ) => (
   <div className="header">
@@ -26,6 +27,22 @@ const Header = ( { currentUser } ) => (
         }
     </div>
   </div>
-)
+);
 
-export default Header;
+// Código original del video del curso
+// const mapStateToProps = state => ({
+//   currentUser: state.user.currentUser
+// })
+
+// Personal version to trace state props & values
+const mapStateToProps = state => {
+  // console.log ("state:", state);
+  // console.log ("state.user:", state.user);
+  // console.log ("state.user.currentUser:", state.user.currentUser);
+    return {
+      currentUser: state.user.currentUser
+    }
+}
+
+
+export default connect(mapStateToProps)(Header);
