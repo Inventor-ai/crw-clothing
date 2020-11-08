@@ -10,7 +10,7 @@ const CollectionPreview = ( { title, items, routeName, path } ) => {
          <h1 className="title">{ title.toUpperCase() }</h1>
        </Link>
        <div className="preview">
-         { //items.filter ( item => item.id < 5 ).map (
+         {
            items
              .filter ( ( item, idx ) => idx < 4 )
              .map ( (item)  => (
