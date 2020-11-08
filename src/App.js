@@ -11,50 +11,21 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import './App.css';
 
 class App extends React.Component {
-  // Replaced by Redux functions
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     currentUser: null
-  //   };
-  // }
-
   unsubscribeFromAuth = null;
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
-    // Auth is a Open messaging system that return user state
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
          const userRef =  await createUserProfileDocument (userAuth);
          userRef.onSnapshot ( snapShot => {
-           /* Replaced by Redux functions
-           this.setState (
-             {
-               currentUser: {
-                 id: userRef.id,
-                 ...snapShot.data()
-               }
-             },
-             // Muestra datos del usuario logeado (Signed-In)
-             () => { console.log ("this.setState I:", this.state) }
-           );
-           */
            setCurrentUser({
              id: userRef.id,
              ...snapShot.data()
            });
-           // Used for testing sign in too
-           //  console.log ("onSnapShot I:", this.state );
          });
       }
       else {
-        /*  Replaced by Redux functions
-        this.setState ( { currentUser: userAuth }
-          // Muestra que el usuario salió (Signed-Out)
-          //, () => console.log ("this.setState O:", this.state)
-        );
-        */
         setCurrentUser ( userAuth );
       }
     });
@@ -72,13 +43,10 @@ class App extends React.Component {
           <Route exact path='/' component={Homepage} />
           <Route path='/shop/'  component={ShopPage} />
           <Route exact path='/signin' render={() =>
-             this.props.currentUser ? (
-                <Redirect to='/' />
-             ) : (
-                <SignInAndSignUpPage />
-             )
-           }
-          />
+             this.props.currentUser 
+               ? (<Redirect to='/' />) 
+               : (<SignInAndSignUpPage />)
+          }/>
         </Switch>
       </div>
     );
@@ -88,10 +56,6 @@ class App extends React.Component {
 const mapStateToProps = ({user}) => ({
   currentUser: user.currentUser
 });
-
-// const mapStateToProps = state => ({
-//   currentUser: state.user.currentUser
-// })
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch (setCurrentUser(user))
