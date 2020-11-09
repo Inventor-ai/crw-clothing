@@ -6,7 +6,7 @@ import './shop.styles.scss';
 class ShopPage extends React.Component {
   constructor(props) {
     super(props) ;
-    console.log('shop - constructor', props);
+    // console.log('shop - constructor', props);
     this.state = {
        collections : SHOP_DATA,
        router : props
@@ -14,7 +14,7 @@ class ShopPage extends React.Component {
   }
 
   render () {
-    console.log('shop render', this.state.collections );
+    // console.log('shop render', this.state.collections );
     const path = this.state.router.match.path ;
     const { collections } = this.state;
     return (
