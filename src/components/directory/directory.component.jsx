@@ -49,28 +49,10 @@ class Directory extends React.Component {
     return (
     <div className="directory-menu">
       {
-        // Desestructuración abreviada del objeto
         this.state.sections.map (( {id, ...otherSectionProps } )=> {
-          // Pasa todos los elementos del objeto como parámetros
           return <MenuItem key={id} {...otherSectionProps} 
           />
         })
-/*
-        // Desestructurando el objeto elemento por elemento
-        this.state.sections.map (( {id, title, imageUrl, size, linkUrl } )=> {
-          return <MenuItem key={id} 
-                    title={title} 
-                    imageUrl={imageUrl} 
-                    size={size}
-                    linkUrl= {linkUrl}
-          />
-        })
-
-        // Enviando el objeto completo
-        this.state.sections.map ( ( section )=> {
-          <MenuItem key={section.id} title={ section }/>
-        });
-*/
       }
     </div>
     );
